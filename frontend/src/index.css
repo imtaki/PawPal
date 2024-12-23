@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Lusitana";
+    src: local("Lusitana-Regular") url("./assets/fonts/Lusitana/Lusitana-Regular.ttf") format("truetype");
+
+}
+
+
+@font-face {
+    font-family: "LusitanaBold";
+    src: local("Lusitana-Bold") url("./assets/fonts/Lusitana/Lusitana-Bold.ttf") format("truetype");
+
+
+}
+
+@keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-in-out;
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-slide-in {
+    animation: slide-in 0.5s ease-in-out;
+  }
