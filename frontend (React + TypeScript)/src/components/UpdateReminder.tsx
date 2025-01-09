@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ReminderForm from "./Form/ReminderForm";
 
 const UpdateReminder: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
+  const [petName, setPetName] = useState("");
+  const [customDate, setCustomDate] = useState<Date | null>(new Date());
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
 
@@ -18,7 +20,8 @@ const UpdateReminder: React.FC = () => {
         const reminder = response.data;
 
         setTitle(reminder.title);
-        setDate(reminder.date);
+        setPetName(reminder.petName);
+        setCustomDate(new Date(reminder.customDate));
         setDescription(reminder.description);
       } catch (err) {
         setError("Failed to load reminder details.");
@@ -32,7 +35,8 @@ const UpdateReminder: React.FC = () => {
     try {
       const updatedReminder = {
         title,
-        date,
+        petName,
+        customDate: customDate?.toISOString(),
         description,
       };
 
@@ -52,64 +56,21 @@ const UpdateReminder: React.FC = () => {
         {error && (
           <p className="text-center mb-4 text-red-600">{error}</p>
         )}
-        <form onSubmit={handleUpdate} className="space-y-4">
-          <div className="mb-4">
-            <label className="block font-semibold mb-2" htmlFor="reminder-title">
-              Title
-            </label>
-            <input
-              type="text"
-              name="reminder-title"
-              id="reminder-title"
-              placeholder="Enter title"
-              className="w-full border border-gray-300 rounded-md p-2"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2" htmlFor="reminder-date">
-              Date
-            </label>
-            <input
-              type="date"
-              name="reminder-date"
-              id="reminder-date"
-              className="w-full border border-gray-300 rounded-md p-2"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2" htmlFor="reminder-description">
-              Description
-            </label>
-            <textarea
-              name="reminder-description"
-              id="reminder-description"
-              placeholder="Enter description"
-              className="w-full border border-gray-300 rounded-md p-2"
-              rows={4}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md w-full hover:from-blue-700 hover:to-blue-500 transition duration-200"
-          >
-            Update Reminder
-          </button>
-        </form>
+        <ReminderForm
+          title={title}
+          petName={petName}
+          customDate={customDate}
+          description={description}
+          onSubmit={handleUpdate}
+          setTitle={setTitle}
+          setPetName={setPetName}
+          setCustomDate={setCustomDate}
+          setDescription={setDescription}
+          submitButtonText="Update Reminder"
+        />
       </div>
     </div>
   );
 };
 
 export default UpdateReminder;
-
-
-

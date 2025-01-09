@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import ReminderForm from "./Form/ReminderForm";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -70,57 +69,19 @@ const handleSubmit = async (e: React.FormEvent) => {
             {message}
           </p>
         )}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Title</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Enter a title (e.g., Vet Visit)"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Pet Name</label>
-            <input
-              type="text"
-              value={petName}
-              onChange={(e) => setPetName(e.target.value)}
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Enter your pet's name"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Date and Time</label>
-            <DatePicker
-              selected={customDate}
-              onChange={(date) => setCustomDate(date)}
-              showTimeSelect
-              dateFormat="Pp"
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Description</label>
-            <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Enter your description"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md w-full hover:from-blue-700 hover:to-blue-500 transition duration-200"
-          >
-            Add Reminder
-          </button>
-        </form>
+        <ReminderForm
+          title={title}
+          petName={petName}
+          customDate={customDate}
+          description={description}
+          onSubmit={handleSubmit}
+          setTitle={setTitle}
+          setPetName={setPetName}
+          setCustomDate={setCustomDate}
+          setDescription={setDescription}
+          submitButtonText="Add Reminder"
+        />
+
       </div>
     </div>
   );

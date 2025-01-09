@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import PetForm from "./Form/PetForm";
 
 const UpdatePets: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -55,74 +56,18 @@ const UpdatePets: React.FC = () => {
         {error && (
           <p className="text-center mb-4 text-red-600">{error}</p>
         )}
-        <form onSubmit={handleUpdate} className="space-y-4">
-          <div className="mb-4">
-            <label className="block font-semibold mb-2" htmlFor="pet-name">
-              Pet Name
-            </label>
-            <input
-              type="text"
-              name="pet-name"
-              id="pet-name"
-              placeholder="Enter pet name"
-              className="w-full border border-gray-300 rounded-md p-2"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2" htmlFor="pet-age">
-              Pet Age
-            </label>
-            <input
-              type="number"
-              name="pet-age"
-              id="pet-age"
-              placeholder="Enter pet age"
-              className="w-full border border-gray-300 rounded-md p-2"
-              value={age}
-              onChange={(e) => setAge(Number(e.target.value))}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2" htmlFor="pet-breed">
-              Pet Breed
-            </label>
-            <input
-              type="text"
-              name="pet-breed"
-              id="pet-breed"
-              placeholder="Enter pet breed"
-              className="w-full border border-gray-300 rounded-md p-2"
-              value={breed}
-              onChange={(e) => setBreed(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2" htmlFor="pet-med-hist">
-              Medical History
-            </label>
-            <input
-              type="text"
-              name="pet-med-hist"
-              id="pet-medical-history"
-              placeholder="Enter medical history (comma separated)"
-              className="w-full border border-gray-300 rounded-md p-2"
-              value={medicalHistory}
-              onChange={(e) => setMedicalHistory(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md w-full hover:from-blue-700 hover:to-blue-500 transition duration-200"
-          >
-            Update Pet
-          </button>
-        </form>
+        <PetForm
+          name={name}
+          age={age}
+          breed={breed}
+          medicalHistory={medicalHistory}
+          onSubmit={handleUpdate}
+          setName={setName}
+          setAge={setAge}
+          setBreed={setBreed}
+          setMedicalHistory={setMedicalHistory}
+          submitButtonText="Update Pet"
+        />
       </div>
     </div>
   );

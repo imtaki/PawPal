@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
+import PetForm from './Form/PetForm';
 const AddPets: React.FC = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
@@ -43,8 +43,8 @@ const AddPets: React.FC = () => {
             setMessage("Error adding pet. Please try again.");
             console.error('Error adding pet:', error);
         }
-    };    return (
-        <>
+    };    
+    return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 font-lusitana">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold text-center mb-6 text-blue-600">
@@ -61,61 +61,20 @@ const AddPets: React.FC = () => {
             {message}
           </p>
         )}
-        <form onSubmit={handleAddPets}>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Pet Name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Enter pet name"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Pet Age</label>
-            <input
-              type="number"
-              value={age}
-              onChange={(e) => setAge(Number(e.target.value))}
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Enter your pet's name"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Pet Breed</label>
-            <input
-              type='text'
-              value={breed}
-              onChange={(e) => setBreed(e.target.value)}
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Enter your pet's breed"
-            />
-          </div>
-          
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Medical History</label>
-            <input
-              type='text'
-              value={medicalHistory}
-              onChange={(e) => setMedicalHistory(e.target.value)}
-              className="w-full border border-gray-300 rounded-md p-2"
-              placeholder="Enter medical history (if any)"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md w-full hover:from-blue-700 hover:to-blue-500 transition duration-200"
-          >
-            Add Pet
-          </button>
-        </form>
+       <PetForm
+          name={name}
+          age={age}
+          breed={breed}
+          medicalHistory={medicalHistory}
+          onSubmit={handleAddPets}
+          setName={setName}
+          setAge={setAge}
+          setBreed={setBreed}
+          setMedicalHistory={setMedicalHistory}
+          submitButtonText="Add Pet"
+        />
       </div>
     </div>
-        
-    </>
     );
 };
 
