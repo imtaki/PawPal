@@ -28,6 +28,12 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 
+const corsOptions = {
+    origin: ['https://pawpal-pearl.vercel.app', 'http://localhost:3000'],
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use('/api/pets', petsRouter)
 app.use('/api/auth', authRoutes)
 app.use('/api/reminders', remindersRouter)
