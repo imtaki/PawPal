@@ -42,8 +42,8 @@ const Login: React.FC = () => {
     }
   };
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
-      <div className="flex-1 flex items-center justify-center px-6 lg:px-16 bg-gray-50">
+    <div className="min-h-screen flex flex-col md:flex-row ">
+      <div className="flex-1 flex items-center justify-center px-6 lg:px-16 bg-gradient-to-br from-indigo-950 via-blue-900 to-violet-950">
         <div className="max-w-md w-full -mt-20">
           <div className="text-center">
             <img
@@ -51,10 +51,10 @@ const Login: React.FC = () => {
               src="/src/assets/images/paw-icon.png"
               className="mx-auto h-12 w-auto"
             />
-            <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            <h2 className="mt-6 text-3xl font-extrabold text-gray-100">
               Welcome to PawPal
             </h2>
-            <p className="mt-2 text-xl text-gray-600">
+            <p className="mt-2 text-xl text-gray-300">
               Sign in to your account
             </p>
           </div>

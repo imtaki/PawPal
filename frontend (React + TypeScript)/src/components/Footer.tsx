@@ -1,6 +1,6 @@
 const Footer: React.FC = () => {
     return (
-      <footer className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-500 text-white py-6">
+      <footer className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-6">
         <div className="container mx-auto px-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-4 md:mb-0">
