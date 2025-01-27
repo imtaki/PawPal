@@ -14,7 +14,6 @@ const UpdatePetsModal: React.FC<UpdatePetsModalProps> = ({ isOpen, onClose, onSu
   const [age, setAge] = useState(0);
   const [breed, setBreed] = useState("");
   const [medicalHistory, setMedicalHistory] = useState("");
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchPet = async () => {
@@ -26,7 +25,7 @@ const UpdatePetsModal: React.FC<UpdatePetsModalProps> = ({ isOpen, onClose, onSu
         setBreed(pet.breed);
         setMedicalHistory(pet.medicalHistory.join(", "));
       } catch (err) {
-        setError("Failed to load pet details.");
+        console.error(err);
       }
     };
     if (isOpen) fetchPet();
@@ -45,7 +44,7 @@ const UpdatePetsModal: React.FC<UpdatePetsModalProps> = ({ isOpen, onClose, onSu
       onSuccess();
       onClose();
     } catch (err) {
-      setError("Failed to update pet. Please try again.");
+      console.error(err);
     }
   };
 
