@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { FaPaw } from "react-icons/fa";
 import AddPetsModal from "./AddPets";
 import UpdatePetsModal from "./UpdatePets";
+import { api } from "../axios";
 
 const Pets: React.FC = () => {
   const [pets, setPets] = useState([]);
@@ -15,7 +15,7 @@ const Pets: React.FC = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/pets");
+        const response = await api.get("/api/pets");
         setPets(response.data);
       } catch (err) {
         setError("Failed to fetch pets. Please try again later.");
@@ -29,7 +29,7 @@ const Pets: React.FC = () => {
 
   const refreshPets = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/pets");
+      const response = await api.get("/api/pets");
       setPets(response.data);
     } catch (err) {
       setError("Failed to fetch pets. Please try again later.");
@@ -42,7 +42,7 @@ const Pets: React.FC = () => {
 
   async function deletePet(id: number) {
     try {
-      await axios.delete(`http://localhost:3001/api/pets/${id}`);
+      await api.delete(`/api/pets/${id}`);
       setPets(pets.filter((pet: any) => pet._id !== id));
     } catch (err) {
       console.error(err);

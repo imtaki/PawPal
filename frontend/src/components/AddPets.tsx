@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import  { api } from '../axios';
 import PetForm from './Form/PetForm';
 interface AddPetsModalProps {
     isOpen: boolean;
@@ -25,7 +25,7 @@ const AddPetsModal: React.FC<AddPetsModalProps> = ({ isOpen, onClose, onSuccess 
             };
         
             try {
-                const response = await axios.post('http://localhost:3001/api/pets', petData);
+                const response = await api.post('/pets', petData);
                 resolve(response.data);
             } catch (error) {
                 reject(error);

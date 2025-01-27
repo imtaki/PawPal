@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import ReminderForm from "./Form/ReminderForm";
+import { api } from "../axios";
 
 interface UpdateRemindersModalProps {
   isOpen: boolean;
@@ -22,7 +22,7 @@ const UpdateReminderModal: React.FC<UpdateRemindersModalProps> = ({ isOpen, onCl
       if (!id) return;
       
       try {
-        const response = await axios.get(`http://localhost:3001/api/reminders/${id}`);
+        const response = await api.get(`/api/reminders/${id}`);
         const reminder = response.data;
 
         setTitle(reminder.title);
@@ -56,7 +56,7 @@ const UpdateReminderModal: React.FC<UpdateRemindersModalProps> = ({ isOpen, onCl
         description,
       };
 
-      await axios.put(`http://localhost:3001/api/reminders/${id}`, updatedReminder);
+      await api.put(`/api/reminders/${id}`, updatedReminder);
       onSuccess();
       onClose();
     } catch (err) {
@@ -65,7 +65,7 @@ const UpdateReminderModal: React.FC<UpdateRemindersModalProps> = ({ isOpen, onCl
   };
   useEffect(() => {
     const fetchPets = async () => {
-      const response = await axios.get("http://localhost:3001/api/pets");
+      const response = await api.get("/api/pets");
       setPets(response.data);
     };
     fetchPets();

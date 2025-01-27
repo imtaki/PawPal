@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReminderForm from "./Form/ReminderForm";
-import axios from "axios";
+import { api } from "../axios";
 import { useEffect } from "react";
 
 interface AddReminderModalProps {
@@ -33,7 +33,7 @@ const AddRemindersModal: React.FC<AddReminderModalProps> = ({ isOpen, onClose, o
         customDate: customDate.toISOString(),
       };
 
-      await axios.post("http://localhost:3001/api/reminders", reminderData);
+      await api.post("/api/reminders", reminderData);
       setMessage("Reminder added successfully!");
       onSuccess();
       onClose();
@@ -49,7 +49,7 @@ const AddRemindersModal: React.FC<AddReminderModalProps> = ({ isOpen, onClose, o
   };
   useEffect(() => {
     const fetchPets = async () => {
-      const response = await axios.get("http://localhost:3001/api/pets");
+      const response = await api.get("/api/pets");
       setPets(response.data);
     };
     fetchPets();

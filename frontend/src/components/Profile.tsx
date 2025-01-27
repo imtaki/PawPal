@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle, FaPaw, FaEnvelope, FaCalendar } from "react-icons/fa";
-import axios from "axios";
 import moment from "moment";
+import { api } from "../axios";
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
@@ -15,7 +15,7 @@ const Profile: React.FC = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3001/api/auth/profile", {
+        const response = await api.get("/api/auth/profile", {
           headers: {
             Authorization: `Bearer ${token}`
           }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import PetForm from "./Form/PetForm";
+import { api } from "../axios";
 
 interface UpdatePetsModalProps {
   isOpen: boolean;
@@ -18,7 +18,7 @@ const UpdatePetsModal: React.FC<UpdatePetsModalProps> = ({ isOpen, onClose, onSu
   useEffect(() => {
     const fetchPet = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/pets/${petId}`);
+        const response = await api.get(`/api/pets/${petId}`);
         const pet = response.data;
         setName(pet.name);
         setAge(pet.age);
@@ -40,7 +40,7 @@ const UpdatePetsModal: React.FC<UpdatePetsModalProps> = ({ isOpen, onClose, onSu
         breed,
         medicalHistory: medicalHistory.split(",").map((item) => item.trim()),
       };
-      await axios.put(`http://localhost:3001/api/pets/${petId}`, updatedPet);
+      await api.put(`/api/pets/${petId}`, updatedPet);
       onSuccess();
       onClose();
     } catch (err) {

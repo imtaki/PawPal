@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { redirect } from "react-router-dom";
+import { api } from "../axios";
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const Login: React.FC = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3001/api/auth/login', {
+      const res = await api.post('api/auth/login', {
         email,
         password,
       });
