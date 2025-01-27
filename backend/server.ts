@@ -23,6 +23,11 @@ mongoose
 .then(() => console.log('Connected to MongoDB server'))
 .catch((err) => console.log(err + "DB not connected"));
 
+app.get('/', (req: Request, res: Response) => {
+    res.send('Express + TypeScript Server');
+});
+
+
 app.use('/api/pets', petsRouter)
 app.use('/api/auth', authRoutes)
 app.use('/api/reminders', remindersRouter)
