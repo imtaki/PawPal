@@ -13,6 +13,7 @@ interface ReminderFormProps {
   setCustomDate: (date: Date | null) => void;
   setDescription: (value: string) => void;
   submitButtonText: string;
+  pets: Array<{_id: string, name: string}>;
 }
 
 const ReminderForm: React.FC<ReminderFormProps> = ({
@@ -25,7 +26,8 @@ const ReminderForm: React.FC<ReminderFormProps> = ({
   setPetName,
   setCustomDate,
   setDescription,
-  submitButtonText
+  submitButtonText,
+  pets
 }) => {
   return (
     <form onSubmit={onSubmit}>
@@ -42,14 +44,19 @@ const ReminderForm: React.FC<ReminderFormProps> = ({
       </div>
       <div className="mb-4">
         <label className="block font-semibold mb-2">Pet Name</label>
-        <input
-          type="text"
+        <select
           value={petName}
           onChange={(e) => setPetName(e.target.value)}
           className="w-full border border-gray-300 rounded-md p-2"
-          placeholder="Enter pet name"
           required
-        />
+        >
+          <option value="">Select a pet</option>
+          {pets.map((pet) => (
+            <option key={pet._id} value={pet.name}>
+              {pet.name}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="mb-4">
         <label className="block font-semibold mb-2">Date and Time</label>

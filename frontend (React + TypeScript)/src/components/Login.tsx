@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { redirect } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +27,7 @@ const Login: React.FC = () => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify({ email }));
         setMessage('Logged in successfully');
+        redirect("/");
       } else {
         setMessage('Unexpected response from server');
       }
@@ -108,7 +110,7 @@ const Login: React.FC = () => {
               </div>
             </form>
             {message && (
-              <p className="mt-4 text-sm text-center text-gray-500">{message}</p>
+              <p className="mt-4 text-sm text-center text-green-400">{message}</p>
             )}
           </div>
         </div>

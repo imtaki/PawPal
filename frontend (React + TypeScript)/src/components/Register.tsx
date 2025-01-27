@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
+import { redirect } from "react-router-dom";
 
 const Register: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ const Register: React.FC = () => {
               password
           });
           setMessage('Registered successfully'); 
+          redirect("/login");
       } catch (err: any) {
           console.error(err.response.data);
           setMessage('Failed to register, User already exists'); 
@@ -115,7 +117,7 @@ const Register: React.FC = () => {
                       </div>
                   </form>
                   {message && (
-                      <p className="mt-4 text-sm text-center text-gray-500">{message}</p>
+                      <p className="mt-4 text-sm text-center text-green-400">{message}</p>
                   )}
               </div>
           </div>

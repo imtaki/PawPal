@@ -4,60 +4,65 @@ import { CgProfile } from "react-icons/cg";
 
 const Features: React.FC = () => {
   return (
-    <div className="container mx-auto py-20 px-6 mt-8 bg-gradient-to-b from-white to-blue-50">
-      <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold mt-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 inline-block text-transparent bg-clip-text">
-          Features You'll Love
+    <div className="container mx-auto py-32 px-6 bg-gradient-to-b from-gray-50 to-white">
+      <div className="text-center mb-24">
+        <div className="inline-flex items-center px-6 py-3 rounded-full bg-blue-50 mb-8">
+        </div>
+        <h2 className="text-6xl font-bold mt-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 inline-block text-transparent bg-clip-text">
+          Elevate Your Pet Care
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+        {/* Medical Records Card */}
         <div className="group relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 rounded-2xl transform transition-transform group-hover:scale-[1.02] group-hover:rotate-1"></div>
-          <div className="relative p-8 bg-white rounded-2xl transform transition-transform group-hover:-translate-y-1">
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2">
-              <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 transform transition-transform group-hover:scale-110">
-                <FaBookMedical className="w-12 h-12 text-white" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 rounded-[2.5rem] transform transition-transform duration-300 group-hover:scale-[1.02] group-hover:rotate-1" />
+          <div className="relative p-12 bg-white rounded-[2.5rem] transform transition-all duration-300 group-hover:-translate-y-2">
+            <div className="absolute -top-12 left-1/2 -translate-x-1/2">
+              <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-6 shadow-xl transform transition-transform duration-300 group-hover:scale-110">
+                <FaBookMedical className="w-14 h-14 text-white" />
               </div>
             </div>
-            <div className="mt-8">
-              <h3 className="text-2xl font-bold text-blue-800 text-center mb-4">Track Medical Records</h3>
-              <p className="text-gray-600 text-center text-lg leading-relaxed">
-                Keep track of vet visits, vaccinations, and health records with our intuitive digital system.
+            <div className="mt-12">
+              <h3 className="text-3xl font-bold text-blue-900 text-center mb-6">Medical Records</h3>
+              <p className="text-gray-600 text-center text-xl leading-relaxed">
+              Keep all your pet's health records in one place. Track vaccinations, vet visits, and medical history effortlessly.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="group relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-purple-600 rounded-2xl transform transition-transform group-hover:scale-[1.02] group-hover:rotate-1"></div>
-          <div className="relative p-8 bg-white rounded-2xl transform transition-transform group-hover:-translate-y-1">
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2">
-              <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-4 transform transition-transform group-hover:scale-110">
-                <IoCalendarNumber className="w-12 h-12 text-white" />
+        {/* Smart Reminders Card */}
+        <div className="group relative mt-16 md:mt-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 rounded-[2.5rem] transform transition-transform duration-300 group-hover:scale-[1.02] group-hover:rotate-1" />
+          <div className="relative p-12 bg-white rounded-[2.5rem] transform transition-all duration-300 group-hover:-translate-y-2">
+            <div className="absolute -top-12 left-1/2 -translate-x-1/2">
+              <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl p-6 shadow-xl transform transition-transform duration-300 group-hover:scale-110">
+                <IoCalendarNumber className="w-14 h-14 text-white" />
               </div>
             </div>
-            <div className="mt-8">
-              <h3 className="text-2xl font-bold text-purple-800 text-center mb-4">Set Reminders</h3>
-              <p className="text-gray-600 text-center text-lg leading-relaxed">
-                Never forget vet appointments or vaccination schedules with our smart reminder system.
+            <div className="mt-12">
+              <h3 className="text-3xl font-bold text-purple-900 text-center mb-6">Smart Reminders</h3>
+              <p className="text-gray-600 text-center text-xl leading-relaxed">
+              Never miss important pet care dates. Get timely notifications for vet appointments, medications, and vaccinations.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="group relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-2xl transform transition-transform group-hover:scale-[1.02] group-hover:rotate-1"></div>
-          <div className="relative p-8 bg-white rounded-2xl transform transition-transform group-hover:-translate-y-1">
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2">
-              <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-xl p-4 transform transition-transform group-hover:scale-110">
-                <CgProfile className="w-12 h-12 text-white" />
+        {/* Pet Profiles Card */}
+        <div className="group relative mt-16 md:mt-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-[2.5rem] transform transition-transform duration-300 group-hover:scale-[1.02] group-hover:rotate-1" />
+          <div className="relative p-12 bg-white rounded-[2.5rem] transform transition-all duration-300 group-hover:-translate-y-2">
+            <div className="absolute -top-12 left-1/2 -translate-x-1/2">
+              <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-2xl p-6 shadow-xl transform transition-transform duration-300 group-hover:scale-110">
+                <CgProfile className="w-14 h-14 text-white" />
               </div>
             </div>
-            <div className="mt-8">
-              <h3 className="text-2xl font-bold text-indigo-800 text-center mb-4">Manage Pet Profiles</h3>
-              <p className="text-gray-600 text-center text-lg leading-relaxed">
-                Organize details for all your pets in one convenient place with customizable profiles.
+            <div className="mt-12">
+              <h3 className="text-3xl font-bold text-indigo-900 text-center mb-6">Pet Profiles</h3>
+              <p className="text-gray-600 text-center text-xl leading-relaxed">
+              Create detailed profiles for each of your pets. Store photos, breed info, and track their unique care requirements.
               </p>
             </div>
           </div>

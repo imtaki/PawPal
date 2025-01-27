@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 const Layout: React.FC = () => {
   return (
-    <div className="App font-lusitana">
+    <div className="App font-inter">
       <NavBar />
       <div className="page">
         <Outlet />

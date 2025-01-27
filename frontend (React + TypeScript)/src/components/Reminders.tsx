@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import AddRemindersModal from "./AddReminders";
+import UpdateReminderModal from "./UpdateReminder";
 
 const Reminders: React.FC = () => {
   const [reminders, setReminders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [selectedReminderId, setSelectedReminderId] = useState("");
+
+  const fetchReminders = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/api/reminders");
+      setReminders(response.data);
+    } catch (err) {
+      setError("Failed to fetch reminders. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchReminders = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/api/reminders");
-        setReminders(response.data);
-      } catch (err) {
-        setError("Failed to fetch reminders. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchReminders();
   }, []);
 
@@ -36,12 +42,12 @@ const Reminders: React.FC = () => {
           <h1 className="text-center text-5xl font-extrabold text-black sm:text-6xl flex items-center gap-4">
             Your Reminders
           </h1>
-          <a
-            href="/addreminders"
+          <button
+            onClick={() => setIsAddModalOpen(true)}
             className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:shadow-xl"
           >
-            + Add Reminder
-          </a>
+            + Add Reminders
+          </button>
         </div>
 
         {error && (
@@ -86,12 +92,15 @@ const Reminders: React.FC = () => {
                     <strong>Description:</strong> {reminder.description}
                   </p>
                   <div className="flex justify-between mt-6 gap-4">
-                    <a
-                      href={`/updatereminder/${reminder._id}`}
+                    <button
+                      onClick={() => {
+                        setSelectedReminderId(reminder._id);
+                        setIsUpdateModalOpen(true);
+                      }}
                       className="flex-1 text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-2 px-6 rounded-full shadow transition-transform duration-200 hover:scale-105"
                     >
-                      Change Info
-                    </a>
+                      Update
+                    </button>
                     <button
                       onClick={() => deleteReminder(reminder._id)}
                       className="flex-1 bg-gradient-to-r from-red-500 to-red-700 text-white font-semibold py-2 px-6 rounded-full shadow transition-transform duration-200 hover:scale-105"
@@ -103,8 +112,29 @@ const Reminders: React.FC = () => {
               </div>
             ))}
         </div>
+
+        <AddRemindersModal 
+          isOpen={isAddModalOpen}
+          onClose={() => setIsAddModalOpen(false)}
+          onSuccess={() => {
+            fetchReminders();
+            setIsAddModalOpen(false);
+          }}
+        />
+        
+        <UpdateReminderModal 
+          isOpen={isUpdateModalOpen}
+          onClose={() => setIsUpdateModalOpen(false)}
+          onSuccess={() => {
+            fetchReminders();
+            setIsUpdateModalOpen(false);
+          }}
+          id={selectedReminderId}
+        />
       </div>
     </div>
   );
 };
+
 export default Reminders;
+

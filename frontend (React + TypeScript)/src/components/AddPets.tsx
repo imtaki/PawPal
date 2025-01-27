@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import PetForm from './Form/PetForm';
-const AddPets: React.FC = () => {
-    const navigate = useNavigate();
+interface AddPetsModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onSuccess: () => void;
+}
+
+const AddPetsModal: React.FC<AddPetsModalProps> = ({ isOpen, onClose, onSuccess }) => {
     const [name, setName] = useState('');
     const [age, setAge] = useState(0);
     const [breed, setBreed] = useState('');
     const [medicalHistory, setMedicalHistory] = useState('');
-    const [message, setMessage] = useState("");
 
     const handleAddPets = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -31,36 +34,20 @@ const AddPets: React.FC = () => {
 
         try {
             await addPetPromise;
-            setMessage("Pet added successfully! Redirecting to pet list...");
-            setName('');
-            setAge(0);
-            setBreed('');
-            setMedicalHistory('');
-            setTimeout(() => {
-              navigate("/pets");
-          }, 2000);
+            onSuccess(); 
+            onClose();
         } catch (error) {
-            setMessage("Error adding pet. Please try again.");
-            console.error('Error adding pet:', error);
+            console.error('Failed to add pet:', error);
         }
     };    
+    if (!isOpen) return null;
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 font-lusitana">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6 text-blue-600">
-          Add a New Pet
-        </h1>
-        {message && (
-          <p
-            className={`text-center mb-4 ${
-              message.includes("successfully")
-                ? "text-green-600"
-                : "text-red-600"
-            }`}
-          >
-            {message}
-          </p>
-        )}
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md m-4">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-bold text-blue-600">Add a New Pet</h1>
+          <button onClick={onClose} className="text-gray-500 text-3xl hover:text-gray-700">×</button>
+        </div>
        <PetForm
           name={name}
           age={age}
@@ -78,4 +65,4 @@ const AddPets: React.FC = () => {
     );
 };
 
-export default AddPets;
+export default AddPetsModal;

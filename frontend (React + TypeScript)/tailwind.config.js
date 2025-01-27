@@ -7,8 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        lusitana: ['Lusitana'],
-        lusitanaBold: ['Lusitana Bold'],
+        inter: ['Inter', 'sans-serif']
       }
     },
   },

@@ -53,7 +53,7 @@ const NavBar: React.FC = () => {
           </div>
 
           {!isLoginPage && !isRegisterPage && (
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-8">
               {navItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
@@ -116,7 +116,7 @@ const NavBar: React.FC = () => {
               </div>
             <button
               onClick={toggleMobileMenu}
-              className="md:hidden text-white"
+              className="lg:hidden text-white"
             >
               {isMenuOpen ? (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -132,7 +132,7 @@ const NavBar: React.FC = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden bg-white/10 rounded-lg">
+          <div className="lg:hidden bg-white/10 rounded-lg">
             {navItems.map((item) => (
               <a
                 key={item.id}

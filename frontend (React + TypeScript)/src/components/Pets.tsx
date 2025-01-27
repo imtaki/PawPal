@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaPaw } from "react-icons/fa";
+import AddPetsModal from "./AddPets";
+import UpdatePetsModal from "./UpdatePets";
 
 const Pets: React.FC = () => {
   const [pets, setPets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPetId, setSelectedPetId] = useState("");
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchPets = async () => {
@@ -21,6 +26,19 @@ const Pets: React.FC = () => {
     };
     fetchPets();
   }, []);
+
+  const refreshPets = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/api/pets");
+      setPets(response.data);
+    } catch (err) {
+      setError("Failed to fetch pets. Please try again later.");
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => setIsLoading(false), 5000);
+    }
+    refreshPets();
+  };
 
   async function deletePet(id: number) {
     try {
@@ -38,12 +56,12 @@ const Pets: React.FC = () => {
           <h1 className="text-center text-5xl font-extrabold text-black sm:text-6xl flex items-center gap-4">
             Your Pets
           </h1>
-          <a
-            href="/addpets"
+          <button
+            onClick={() => setIsModalOpen(true)}
             className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:shadow-xl"
           >
             + Add Pets
-          </a>
+          </button>
         </div>
 
         {error && (
@@ -77,12 +95,15 @@ const Pets: React.FC = () => {
                     <p><span className="font-semibold">Medical History:</span> {pet.medicalHistory.join(", ")}</p>
                   </div>
                   <div className="flex justify-between mt-6 gap-4">
-                    <a
-                      href={`/updatepets/${pet._id}`}
+                  <button
+                      onClick={() => {
+                        setSelectedPetId(pet._id);
+                        setIsUpdateModalOpen(true);
+                      }}
                       className="flex-1 text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-2 px-6 rounded-full shadow transition-transform duration-200 hover:scale-105"
                     >
                       Update
-                    </a>
+                  </button>
                     <button
                       onClick={() => deletePet(pet._id)}
                       className="flex-1 bg-gradient-to-r from-red-500 to-red-700 text-white font-semibold py-2 px-6 rounded-full shadow transition-transform duration-200 hover:scale-105"
@@ -94,6 +115,17 @@ const Pets: React.FC = () => {
               </div>
             ))}
         </div>
+        <AddPetsModal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)}
+          onSuccess={refreshPets}
+        />
+        <UpdatePetsModal
+            isOpen={isUpdateModalOpen}
+            onClose={() => setIsUpdateModalOpen(false)}
+            onSuccess={refreshPets}
+            petId={selectedPetId}
+          />
       </div>
     </div>
   );

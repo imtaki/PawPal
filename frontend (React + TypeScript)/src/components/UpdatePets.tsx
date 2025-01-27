@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import PetForm from "./Form/PetForm";
 
-const UpdatePets: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+interface UpdatePetsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+  petId: string;
+}
 
+const UpdatePetsModal: React.FC<UpdatePetsModalProps> = ({ isOpen, onClose, onSuccess, petId }) => {
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
   const [breed, setBreed] = useState("");
@@ -16,9 +19,8 @@ const UpdatePets: React.FC = () => {
   useEffect(() => {
     const fetchPet = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/pets/${id}`);
+        const response = await axios.get(`http://localhost:3001/api/pets/${petId}`);
         const pet = response.data;
-
         setName(pet.name);
         setAge(pet.age);
         setBreed(pet.breed);
@@ -27,8 +29,8 @@ const UpdatePets: React.FC = () => {
         setError("Failed to load pet details.");
       }
     };
-    fetchPet();
-  }, [id]);
+    if (isOpen) fetchPet();
+  }, [petId, isOpen]);
 
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,23 +41,23 @@ const UpdatePets: React.FC = () => {
         breed,
         medicalHistory: medicalHistory.split(",").map((item) => item.trim()),
       };
-
-      await axios.put(`http://localhost:3001/api/pets/${id}`, updatedPet);
-      navigate("/pets");
+      await axios.put(`http://localhost:3001/api/pets/${petId}`, updatedPet);
+      onSuccess();
+      onClose();
     } catch (err) {
       setError("Failed to update pet. Please try again.");
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 font-lusitana">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6 text-blue-600">
-          Update Pet
-        </h1>
-        {error && (
-          <p className="text-center mb-4 text-red-600">{error}</p>
-        )}
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md m-4">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-bold text-blue-600">Update Pet</h1>
+          <button onClick={onClose} className="text-gray-500 text-4xl hover:text-gray-700">×</button>
+        </div>
         <PetForm
           name={name}
           age={age}
@@ -73,5 +75,4 @@ const UpdatePets: React.FC = () => {
   );
 };
 
-export default UpdatePets;
-
+export default UpdatePetsModal;
