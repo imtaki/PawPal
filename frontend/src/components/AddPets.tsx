@@ -25,7 +25,7 @@ const AddPetsModal: React.FC<AddPetsModalProps> = ({ isOpen, onClose, onSuccess 
             };
         
             try {
-                const response = await api.post('/pets', petData);
+                const response = await api.post('api/pets', petData);
                 resolve(response.data);
             } catch (error) {
                 reject(error);
