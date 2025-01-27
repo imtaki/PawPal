@@ -2,7 +2,7 @@
 
 PawPal is a CRUD-based MERN stack application that allows users to manage pet data with ease. The app features JWT-based authentication for secure login and registration, and provides functionality for adding, updating, viewing, and deleting pet details. Built with React, Node.js, Express, and MongoDB, PawPal is a showcase of full-stack development expertise.
 
-[![temp-Image-IYEBKt.avif](https://i.postimg.cc/nrnF5ngQ/temp-Image-IYEBKt.avif)](https://postimg.cc/PpFnvntt)
+<img src="pawpalscreen.png">
 
 ## 🚀 Features
 
