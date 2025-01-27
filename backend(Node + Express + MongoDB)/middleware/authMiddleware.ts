@@ -3,7 +3,15 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
-export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+interface AuthenticatedRequest extends Request {
+    user?: any; 
+}
+
+export const authenticateToken = (
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+    ) => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -15,7 +23,8 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
         if (err) {
             return res.status(403).json({ message: "Invalid or expired token" });
         }
-        (req as any).user = user;
+        req.user = user;
         next();
     });
 };
+

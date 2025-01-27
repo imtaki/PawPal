@@ -1,4 +1,4 @@
-import { FaPaw, FaUserCircle, FaDog } from "react-icons/fa";
+import { FaPaw, FaUserCircle, FaDog, FaHome } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BiSolidContact } from "react-icons/bi";
@@ -18,6 +18,7 @@ const NavBar: React.FC = () => {
   }, []);
 
   const navItems = [
+    { id: 0, name: "Home", href: "/", icon: <FaHome /> },
     { id: 1, name: "Pets", href: "/pets", icon: <FaDog /> },
     { id: 2, name: "Reminders", href: "/reminders", icon: <FaCalendarDays /> },
     { id: 3, name: "Contact", href: "/contact", icon: <BiSolidContact /> },
@@ -42,15 +43,15 @@ const NavBar: React.FC = () => {
 
 
   return (
-    <nav className="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 shadow-lg ">
+    <nav className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 shadow-lg">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex justify-between items-center py-4">
-          <div className="text-3xl font-extrabold text-white">
-            <a href="/" className="flex justify-between gap-4 hover:text-gray-200 transition ease-in-out duration-200">
-              <FaPaw className="h-8 w-8 animate-pulse" />
-              <span className="font-lusitanaBold text-xl md:text-3xl">PawPal</span>
-            </a>
-          </div>
+        <div className="text-3xl font-extrabold text-white">
+          <a href="/" className="flex justify-between gap-4 hover:text-blue-200 transition ease-in-out duration-200">
+            <FaPaw className="h-8 w-8 animate-pulse opacity-90" />
+            <span className="font-lusitanaBold text-xl md:text-3xl">PawPal</span>
+          </a>
+        </div>
 
           {!isLoginPage && !isRegisterPage && (
             <div className="hidden lg:flex items-center gap-8">
@@ -62,10 +63,9 @@ const NavBar: React.FC = () => {
                   <a
                     key={item.id}
                     href={item.href}
-                    className={`flex items-center gap-2 text-white text-xl transition-all duration-300 ease-in-out transform hover:scale-105 ${
-                      isActive ? 'border-b-2 border-white pb-1' : ''
+                    className={`flex items-center gap-2 text-blue-50 text-xl transition-all duration-300 ease-in-out transform hover:scale-105 ${
+                      isActive ? 'border-b-2 border-blue-300' : ''
                     }`}
-                    aria-current="page"
                   >
                     <span className="text-white">{item.icon}</span>
                     {item.name}
@@ -80,14 +80,14 @@ const NavBar: React.FC = () => {
             {!isLoginPage && !isRegisterPage && user ? (
               <>
                 <div
-                  className="cursor-pointer relative text-white hover:text-gray-300 transition-all transform hover:scale-125"
+                  className="cursor-pointer relative text-white hover:text-gray-300 transition-all transform"
                   onClick={handleProfileClick}
                 >
                   <FaUserCircle size={40} className="rounded-full border-2 border-white p-1 transition-transform duration-300 ease-in-out hover:scale-125" />
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="px-4 py-2 bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white rounded-lg shadow-lg hover:bg-gradient-to-l focus:outline-none transform hover:scale-105 transition duration-200 ease-in-out"
+                  className="px-4 py-2 bg-red-700 hover:bg-red-600 text-white rounded-lg shadow-lg focus:outline-none transform hover:scale-105 transition duration-200 ease-in-out"
                 >
                   Logout
                 </button>
@@ -97,17 +97,17 @@ const NavBar: React.FC = () => {
                 {!isLoginPage && (
                   <a
                     href="/login"
-                    className="px-4 py-2 text-white hover:text-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105"
+                    className="px-4 py-2 text-blue-100 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105"
                   >
                     Login
                   </a>
                 )}
                 {!isRegisterPage && (
                   <a
-                    href="/register"
-                    className="px-4 py-2 bg-gradient-to-r from-gray-800 to-blue-600 text-white hover:bg-gradient-to-l rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 ease-in-out"
+                  href="/register"
+                  className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 ease-in-out"
                   >
-                    Register
+                  Register
                   </a>
                 )}
 
@@ -132,13 +132,13 @@ const NavBar: React.FC = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="lg:hidden bg-white/10 rounded-lg">
+          <div className="lg:hidden bg-blue-800/95 rounded-lg">
             {navItems.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
-                className={`flex items-center justify-center space-x-3 px-4 py-3 text-white ${
-                  location.pathname === item.href ? 'bg-white/20' : 'hover:bg-white/10'
+                className={`flex items-center justify-center space-x-3 px-4 py-3 text-blue-50 ${
+                  location.pathname === item.href ? 'bg-blue-700' : 'hover:bg-blue-700/50'
                 }`}
               >
                 {item.name}

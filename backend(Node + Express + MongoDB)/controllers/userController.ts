@@ -1,9 +1,14 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User, { IUser } from "../models/User";
+import User from "../models/User";
+
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+
+interface AuthenticatedRequest extends Request {
+    user?: { id: string }; 
+}
 
 export const registerUser = async (req: Request, res: Response) => {
     const { username, email, password } = req.body;
@@ -58,5 +63,23 @@ export const loginUser = async (req: Request, res: Response) => {
     } catch (error: any) {
         console.error("Error during login:", error);
         res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+export const getUserProfile = async (req: AuthenticatedRequest, res: Response) => {
+    try {
+        if (!req.user || !req.user.id) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        const user = await User.findById(req.user.id).select("-password");
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json(user);
+    } catch (error) {
+        console.error("Error fetching user profile:", error);
+        res.status(500).json({ message: "Server error" });
     }
 };
