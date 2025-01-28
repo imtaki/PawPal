@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle, FaPaw, FaEnvelope, FaCalendar } from "react-icons/fa";
 import moment from "moment";
-import { api } from "../axios";
+import api from "../axios";
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
