@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaPaw } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import AddPetsModal from "./AddPets";
 import UpdatePetsModal from "./UpdatePets";
 import { api } from "../axios";
 
 const Pets: React.FC = () => {
+  const navigate = useNavigate();
   const [pets, setPets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -13,36 +15,40 @@ const Pets: React.FC = () => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchPets = async () => {
-      try {
-        const response = await api.get("/api/pets");
-        setPets(response.data);
-      } catch (err) {
-        setError("Failed to fetch pets. Please try again later.");
-      } finally {
-        setIsLoading(false);
-        setTimeout(() => setIsLoading(false), 5000);
-      }
-    };
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login');
+      return;
+    }
     fetchPets();
-  }, []);
+  }, [navigate]);
 
-  const refreshPets = async () => {
+  const fetchPets = async () => {
     try {
-      const response = await api.get("/api/pets");
+      const response = await api.get("/api/pets", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
       setPets(response.data);
     } catch (err) {
       setError("Failed to fetch pets. Please try again later.");
     } finally {
       setIsLoading(false);
-      setTimeout(() => setIsLoading(false), 5000);
     }
-    refreshPets();
+  };
+
+  const refreshPets = async () => {
+    await fetchPets();
   };
 
   async function deletePet(id: number) {
     try {
-      await api.delete(`/api/pets/${id}`);
+      await api.delete(`/api/pets/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
       setPets(pets.filter((pet: any) => pet._id !== id));
     } catch (err) {
       console.error(err);
@@ -95,7 +101,7 @@ const Pets: React.FC = () => {
                     <p><span className="font-semibold">Medical History:</span> {pet.medicalHistory.join(", ")}</p>
                   </div>
                   <div className="flex justify-between mt-6 gap-4">
-                  <button
+                    <button
                       onClick={() => {
                         setSelectedPetId(pet._id);
                         setIsUpdateModalOpen(true);
@@ -103,7 +109,7 @@ const Pets: React.FC = () => {
                       className="flex-1 text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-2 px-6 rounded-full shadow transition-transform duration-200 hover:scale-105"
                     >
                       Update
-                  </button>
+                    </button>
                     <button
                       onClick={() => deletePet(pet._id)}
                       className="flex-1 bg-gradient-to-r from-red-500 to-red-700 text-white font-semibold py-2 px-6 rounded-full shadow transition-transform duration-200 hover:scale-105"
@@ -121,15 +127,16 @@ const Pets: React.FC = () => {
           onSuccess={refreshPets}
         />
         <UpdatePetsModal
-            isOpen={isUpdateModalOpen}
-            onClose={() => setIsUpdateModalOpen(false)}
-            onSuccess={refreshPets}
-            petId={selectedPetId}
-          />
+          isOpen={isUpdateModalOpen}
+          onClose={() => setIsUpdateModalOpen(false)}
+          onSuccess={refreshPets}
+          petId={selectedPetId}
+        />
       </div>
     </div>
   );
 };
 
 export default Pets;
+
 

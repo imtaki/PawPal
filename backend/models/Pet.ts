@@ -5,7 +5,7 @@ interface IPet extends Document {
   age: number;
   breed: string;
   medicalHistory: string[];
-  owner: mongoose.Types.ObjectId;
+  user: mongoose.Types.ObjectId;
 }
 
 const PetSchema : Schema = new Schema({
@@ -13,7 +13,7 @@ const PetSchema : Schema = new Schema({
     age: {type: Number,required: true},
     breed: {type: String,required: true, default: 'Unknown Breed' },
     medicalHistory: {type: [String],required: true},
-    owner: {type: mongoose.Types.ObjectId,ref: 'User'},
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 
 }, {
     timestamps: true,
