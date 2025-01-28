@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AddRemindersModal from "./AddReminders";
 import UpdateReminderModal from "./UpdateReminder";
-import { api } from "../axios";
-
+import api from "../axios";
 const Reminders: React.FC = () => {
   const [reminders, setReminders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

@@ -3,7 +3,7 @@ import { FaPaw } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AddPetsModal from "./AddPets";
 import UpdatePetsModal from "./UpdatePets";
-import { api } from "../axios";
+import api from "../axios";
 
 const Pets: React.FC = () => {
   const navigate = useNavigate();

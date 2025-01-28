@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import  { api } from '../axios';
+import  api from '../axios';
 import PetForm from './Form/PetForm';
 interface AddPetsModalProps {
     isOpen: boolean;

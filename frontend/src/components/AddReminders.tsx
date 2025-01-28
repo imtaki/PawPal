@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReminderForm from "./Form/ReminderForm";
-import { api } from "../axios";
+import api from "../axios";
 import { useEffect } from "react";
 
 interface AddReminderModalProps {

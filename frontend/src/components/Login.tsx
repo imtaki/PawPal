@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { redirect } from "react-router-dom";
-import { api } from "../axios";
+import api from "../axios";
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -48,7 +48,7 @@ const Login: React.FC = () => {
           <div className="text-center">
             <img
               alt="PawPal"
-              src="/src/assets/images/paw-icon.png"
+              src="/paw-icon.png"
               className="mx-auto h-12 w-auto"
             />
             <h2 className="mt-6 text-3xl font-extrabold text-gray-100">
@@ -118,7 +118,7 @@ const Login: React.FC = () => {
 
       <div className="hidden md:block flex-1 bg-gray-100">
         <img
-          src="/src/assets/images/doglogin.jpg"
+          src="/doglogin.jpg"
           alt="Pet Care"
         />
       </div>
