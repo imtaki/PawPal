@@ -14,7 +14,6 @@ dotenv.config();
 const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
 const port: string | number = process.env.PORT || 3001;
 
 // db
@@ -29,7 +28,13 @@ app.get('/', (req: Request, res: Response) => {
 
 
 const corsOptions = {
-    origin: ['https://pawpal-pearl.vercel.app', 'http://localhost:3000'],
+    origin: [
+        'https://pawpal-pearl.vercel.app', 
+        'http://localhost:3000',
+        'https://pawpal-bhe3.onrender.com'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 };
 
