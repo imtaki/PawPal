@@ -5,7 +5,6 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-indigo-950 via-blue-900 to-violet-950">
-        {/* Animated background elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-pulse delay-700" />
@@ -30,10 +29,10 @@ const Home: React.FC = () => {
               </p>
 
               <div className="flex flex-wrap gap-6">
-                <button className="relative group px-8 py-4 bg-white rounded-xl font-semibold text-blue-950 transition-all duration-300 hover:shadow-[0_0_40px_8px_rgba(255,255,255,0.3)]">
+                <a href="/pets" className="relative group px-8 py-4 bg-white rounded-xl font-semibold text-blue-950 transition-all duration-300 hover:shadow-[0_0_40px_8px_rgba(255,255,255,0.3)]">
                   Get Started
                   <span className="absolute inset-0 rounded-xl bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </button>
+                </a>
                 
                 <button className="px-8 py-4 rounded-xl font-semibold text-white border border-white/30 hover:bg-white/10 transition-colors duration-300">
                   Watch Demo
@@ -71,11 +70,9 @@ const Home: React.FC = () => {
                 </div>
               </div>
 
-              {/* Floating geometric shapes */}
               <div className="absolute left-20 top-00 w-20 h-20 border-4 border-blue-400/30 rounded-xl transform rotate-45 animate-float-slow" />
               <div className="absolute right-40 bottom-0 w-16 h-16 bg-gradient-to-br from-purple-500/20 to-transparent rounded-full animate-float-delay" />
               
-              {/* Glowing orb */}
               <div className="absolute left-40 bottom-40 w-24 h-24 bg-gradient-to-r from-blue-400/40 to-violet-400/40 rounded-full blur-xl animate-pulse" />
             </div>
           </div>
