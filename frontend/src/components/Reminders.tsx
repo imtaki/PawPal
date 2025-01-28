@@ -12,7 +12,7 @@ const Reminders: React.FC = () => {
 
   const fetchReminders = async () => {
     try {
-      const response = await api.get("http://localhost:3001/api/reminders");
+      const response = await api.get("api/reminders");
       setReminders(response.data);
     } catch (err) {
       setError("Failed to fetch reminders. Please try again later.");
@@ -27,7 +27,7 @@ const Reminders: React.FC = () => {
 
   async function deleteReminder(id: string) {
     try {
-      await api.delete(`http://localhost:3001/api/reminders/${id}`);
+      await api.delete(`/api/reminders/${id}`);
       setReminders(reminders.filter((reminder: any) => reminder._id !== id));
     } catch (err) {
       console.error(err);
